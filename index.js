@@ -13,7 +13,7 @@ botbot.moduleManager.addByDirectory(
   join(process.cwd(), "lib", "modules")
 );
 
-botbot.login(TEST_DISCORD_TOKEN)
+botbot.login(DISCORD_TOKEN)
   .then(() => {
     botbot.log(`Guilds: ${botbot.guilds.map(g => g.name).sort().join(", ")}`)
   })
