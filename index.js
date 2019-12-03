@@ -1,16 +1,21 @@
 
 require("dotenv").config();
 
-const { DISCORD_TOKEN } = process.env;
+const { DISCORD_TOKEN, TEST_DISCORD_TOKEN } = process.env;
 const { join } = require("path");
 
+const settings = require("./settings.json");
 const Discord = require("./lib/Client");
 
-const bot = new Discord();
+const botbot = new Discord(settings);
 
-bot.addModulesByDirectory(join(__dirname, "lib", "modules"));
+botbot.moduleManager.addByDirectory(
+  join(process.cwd(), "lib", "modules")
+);
 
-bot.login(DISCORD_TOKEN)
-  .then(token => bot.log(`ready as ${bot.user.tag}`))
+botbot.login(TEST_DISCORD_TOKEN)
+  .then(() => {
+    botbot.log(`Guilds: ${botbot.guilds.map(g => g.name).sort().join(", ")}`)
+  })
   .catch(console.error)
 ;
